@@ -25,4 +25,20 @@ text(x=X[1], y=X[2], labels=sX)
 text(x=Y[1], y=Y[2], labels=sY)
 text(x=Z[1], y=Z[2], labels=sZ)
 
+w.seed = runif(20000)
+w.seed2 = runif(20000)
+wx = w.seed
+wy = (1-wx)*w.seed2
+wz = 1-wx-wy
+Port.mu = wx*X.mu + wy*Y.mu + wz*Z.mu
 
+Port.sigma = sqrt(
+  wx^2*X.sigma^2 + wy^2*Y.sigma^2 + wz^2*Z.sigma^2
+  + 2*wx*wy*X.sigma*Y.sigma*XY.cor
+  + 2*wz*wy*Z.sigma*Y.sigma*YZ.cor
+  + 2*wx*wz*X.sigma*Z.sigma*ZX.cor
+  )
+points(Port.sigma, Port.mu, col=grey(0.8), pch='black')
+text(x=X[1], y=X[2], labels=sX)
+text(x=Y[1], y=Y[2], labels=sY)
+text(x=Z[1], y=Z[2], labels=sZ)
